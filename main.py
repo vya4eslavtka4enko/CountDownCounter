@@ -4,10 +4,16 @@ from PIL import Image, ImageTk
 import time
 
 
-def counter(timer_sum):
-    start_time = time.time()
-    time.sleep(timer_sum)
-    end_time = time.time()
+def counter(time_left):
+        if time_left > 0:
+            hours = int(time_left / 3600) % 60
+            minutes = int(time_left / 60) % 60
+            seconds = time_left % 60
+            time_counter_label.config(text=f'{hours:02d}:{minutes:02d}:{seconds:02d}')
+            # Schedule the countdown function to be called after 1000ms (1 second)
+            mainWindow.after(1000, counter, time_left - 1)
+        else:
+            print("finish")
 
 def change(hours,minutes,seconds):
     time_counter_label.config(text=f'{hours}:{minutes}:{seconds}')
@@ -20,15 +26,8 @@ def timer_function_start():
     second_box = int(spin_box_time_second.get())
     timer_sum = hours_box + minute_box + second_box
 
-    time_counter_label.config(text=f'{spin_box_time_hours.get()}:{spin_box_time_minuts.get()}:{spin_box_time_second.get()}')
+    counter(timer_sum)
 
-    for item in range(timer_sum,0,-1):
-        hours = int(item /3600) % 60
-        minutes = int(item / 60) % 60
-        seconds = item % 60
-        print(f'{hours}:{minutes}:{seconds}')
-        change(hours,minutes,seconds)
-        time.sleep(1)
 
 
     split_count = count_time.split(':')
