@@ -1,8 +1,9 @@
+import sys
 import tkinter
 from tkinter import *
 from PIL import Image, ImageTk
 import time
-
+import sys
 
 def counter(time_left):
         if time_left > 0:
@@ -10,13 +11,13 @@ def counter(time_left):
             minutes = int(time_left / 60) % 60
             seconds = time_left % 60
             time_counter_label.config(text=f'{hours:02d}:{minutes:02d}:{seconds:02d}')
-            # Schedule the countdown function to be called after 1000ms (1 second)
             mainWindow.after(1000, counter, time_left - 1)
         else:
             print("finish")
 
-def change(hours,minutes,seconds):
-    time_counter_label.config(text=f'{hours}:{minutes}:{seconds}')
+
+def timer_stop():
+    print('stop')
 
 def timer_function_start():
 
@@ -27,6 +28,7 @@ def timer_function_start():
     timer_sum = hours_box + minute_box + second_box
 
     counter(timer_sum)
+
 
 
 
@@ -55,7 +57,7 @@ button_timer_start = tkinter.Button(text='Start', command=timer_function_start)
 button_timer_start.config(width=4, height=2)
 button_timer_start.pack(pady=8)
 
-button_timer_stop = tkinter.Button(text='Stop')
+button_timer_stop = tkinter.Button(text='Stop', command=timer_stop)
 button_timer_stop.config(width=4, height=2)
 button_timer_stop.pack()
 
